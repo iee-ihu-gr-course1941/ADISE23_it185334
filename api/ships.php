@@ -12,7 +12,7 @@ $requestUri = $_SERVER['REQUEST_URI'];
 $str_arr = explode ("/", $requestUri);  
 // print_r($str_arr); 
 
-$player = $str_arr[3];
+$player = $str_arr[4];
 
 function getAvailableShips($player_)
 {
