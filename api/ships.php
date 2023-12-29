@@ -44,7 +44,35 @@ function getAvailableShips($player_)
     return $games;
 }
 
-echo json_encode(getAvailableShips($player));
+function placeShip($player_, $shipName, $x, $y, $orientation)
+{
+    $databaseHandler = new DatabaseConnector();
+    $conn = $databaseHandler->getConnection();
+
+
+    $sql = "call placeShip('$ship_name',$x,$y,$orientation,$player);";
+
+    if ($conn->query($sql) === FALSE) {
+        throw new Exception("Error on rolling dice");
+      }
+      
+    $conn->close();
+
+    return ["message" => "ship placed"];
+}
+
+switch ($method) {                   
+    case 'GET':
+        echo json_encode(getAvailableShips($player));
+        break;
+    case 'POST':
+        $postData = file_get_contents("php://input");
+        $jsonData = json_decode($postData, true);
+        echo placeShip(placeShip($player,$jsonData["shipName"],$jsonData["x"],$jsonData["y"],$jsonData["orientation"]));
+        break;
+
+}
+
 
 
 ?>
