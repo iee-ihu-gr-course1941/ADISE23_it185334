@@ -29,6 +29,9 @@ BEGIN
 	delete from board;
     
     insert into board select * from board_empty;
+
+    update ships_p1 SET placed = 0; 
+    update ships_p2 SET placed = 0; 
 END //
 
 
