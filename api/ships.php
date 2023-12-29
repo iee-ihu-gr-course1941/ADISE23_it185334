@@ -50,7 +50,7 @@ function placeShip($player_, $shipName, $x, $y, $orientation)
     $conn = $databaseHandler->getConnection();
 
 
-    $sql = "call placeShip('$ship_name',$x,$y,$orientation,$player);";
+    $sql = "call placeShip('$shipName',$x,$y,'$orientation',$player_);";
 
     if ($conn->query($sql) === FALSE) {
         throw new Exception("Error on rolling dice");
@@ -61,6 +61,8 @@ function placeShip($player_, $shipName, $x, $y, $orientation)
     return ["message" => "ship placed"];
 }
 
+$method = $_SERVER['REQUEST_METHOD'];
+
 switch ($method) {                   
     case 'GET':
         echo json_encode(getAvailableShips($player));
@@ -68,7 +70,7 @@ switch ($method) {
     case 'POST':
         $postData = file_get_contents("php://input");
         $jsonData = json_decode($postData, true);
-        echo placeShip(placeShip($player,$jsonData["shipName"],$jsonData["x"],$jsonData["y"],$jsonData["orientation"]));
+        echo json_encode(placeShip($player,$jsonData["shipName"],$jsonData["x"],$jsonData["y"],$jsonData["orientation"]));
         break;
 
 }
