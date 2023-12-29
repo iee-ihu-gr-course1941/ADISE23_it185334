@@ -1,309 +1,388 @@
--- --------------------------------------------------------
--- Διακομιστής:                  127.0.0.1
--- Έκδοση διακομιστή:            10.4.28-MariaDB - mariadb.org binary distribution
--- Λειτ. σύστημα διακομιστή:     Win64
--- HeidiSQL Έκδοση:              12.6.0.6765
--- --------------------------------------------------------
+-- phpMyAdmin SQL Dump
+-- version 5.2.1
+-- https://www.phpmyadmin.net/
+--
+-- Εξυπηρετητής: 127.0.0.1
+-- Χρόνος δημιουργίας: 29 Δεκ 2023 στις 09:24:18
+-- Έκδοση διακομιστή: 10.4.28-MariaDB
+-- Έκδοση PHP: 8.2.4
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET NAMES utf8 */;
-/*!50503 SET NAMES utf8mb4 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
 
--- Dumping structure for πίνακας naval_battle.board
-CREATE TABLE IF NOT EXISTS `board` (
+--
+-- Βάση δεδομένων: `naval_battle`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Δομή πίνακα για τον πίνακα `board`
+--
+
+CREATE TABLE `board` (
   `x_data` tinyint(1) NOT NULL,
   `y_data` tinyint(1) NOT NULL,
-  `ship` varchar(50) NOT NULL DEFAULT '',
-  `class` enum('Y','N') DEFAULT NULL,
-  PRIMARY KEY (`x_data`,`y_data`)
+  `player` int(11) NOT NULL,
+  `ship_on_board` enum('Y','N') DEFAULT NULL,
+  `is_hitted` enum('Y','N') DEFAULT 'N'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table naval_battle.board: ~100 rows (approximately)
-INSERT INTO `board` (`x_data`, `y_data`, `ship`, `class`) VALUES
-	(1, 1, '', NULL),
-	(1, 2, '', NULL),
-	(1, 3, '', NULL),
-	(1, 4, '', NULL),
-	(1, 5, '', NULL),
-	(1, 6, '', NULL),
-	(1, 7, '', NULL),
-	(1, 8, '', NULL),
-	(1, 9, '', NULL),
-	(1, 10, '', NULL),
-	(2, 1, '', NULL),
-	(2, 2, '', NULL),
-	(2, 3, '', NULL),
-	(2, 4, '', NULL),
-	(2, 5, '', NULL),
-	(2, 6, '', NULL),
-	(2, 7, '', NULL),
-	(2, 8, '', NULL),
-	(2, 9, '', NULL),
-	(2, 10, '', NULL),
-	(3, 1, '', NULL),
-	(3, 2, '', NULL),
-	(3, 3, '', NULL),
-	(3, 4, '', NULL),
-	(3, 5, '', NULL),
-	(3, 6, '', NULL),
-	(3, 7, '', NULL),
-	(3, 8, '', NULL),
-	(3, 9, '', NULL),
-	(3, 10, '', NULL),
-	(4, 1, '', NULL),
-	(4, 2, '', NULL),
-	(4, 3, '', NULL),
-	(4, 4, '', NULL),
-	(4, 5, '', NULL),
-	(4, 6, '', NULL),
-	(4, 7, '', NULL),
-	(4, 8, '', NULL),
-	(4, 9, '', NULL),
-	(4, 10, '', NULL),
-	(5, 1, '', NULL),
-	(5, 2, '', NULL),
-	(5, 3, '', NULL),
-	(5, 4, '', NULL),
-	(5, 5, '', NULL),
-	(5, 6, '', NULL),
-	(5, 7, '', NULL),
-	(5, 8, '', NULL),
-	(5, 9, '', NULL),
-	(5, 10, '', NULL),
-	(6, 1, '', NULL),
-	(6, 2, '', NULL),
-	(6, 3, '', NULL),
-	(6, 4, '', NULL),
-	(6, 5, '', NULL),
-	(6, 6, '', NULL),
-	(6, 7, '', NULL),
-	(6, 8, '', NULL),
-	(6, 9, '', NULL),
-	(6, 10, '', NULL),
-	(7, 1, '', NULL),
-	(7, 2, '', NULL),
-	(7, 3, '', NULL),
-	(7, 4, '', NULL),
-	(7, 5, '', NULL),
-	(7, 6, '', NULL),
-	(7, 7, '', NULL),
-	(7, 8, '', NULL),
-	(7, 9, '', NULL),
-	(7, 10, '', NULL),
-	(8, 1, '', NULL),
-	(8, 2, '', NULL),
-	(8, 3, '', NULL),
-	(8, 4, '', NULL),
-	(8, 5, '', NULL),
-	(8, 6, '', NULL),
-	(8, 7, '', NULL),
-	(8, 8, '', NULL),
-	(8, 9, '', NULL),
-	(8, 10, '', NULL),
-	(9, 1, '', NULL),
-	(9, 2, '', NULL),
-	(9, 3, '', NULL),
-	(9, 4, '', NULL),
-	(9, 5, '', NULL),
-	(9, 6, '', NULL),
-	(9, 7, '', NULL),
-	(9, 8, '', NULL),
-	(9, 9, '', NULL),
-	(9, 10, '', NULL),
-	(10, 1, '', NULL),
-	(10, 2, '', NULL),
-	(10, 3, '', NULL),
-	(10, 4, '', NULL),
-	(10, 5, '', NULL),
-	(10, 6, '', NULL),
-	(10, 7, '', NULL),
-	(10, 8, '', NULL),
-	(10, 9, '', NULL),
-	(10, 10, '', NULL);
+--
+-- Άδειασμα δεδομένων του πίνακα `board`
+--
 
--- Dumping structure for πίνακας naval_battle.board_empty
-CREATE TABLE IF NOT EXISTS `board_empty` (
+INSERT INTO `board` (`x_data`, `y_data`, `player`, `ship_on_board`, `is_hitted`) VALUES
+(0, 0, 1, NULL, 'N'),
+(0, 0, 2, NULL, 'N'),
+(0, 1, 1, NULL, 'N'),
+(0, 1, 2, NULL, 'N'),
+(0, 2, 1, NULL, 'N'),
+(0, 2, 2, NULL, 'N'),
+(0, 3, 1, NULL, 'N'),
+(0, 3, 2, NULL, 'N'),
+(0, 4, 1, NULL, 'N'),
+(0, 4, 2, NULL, 'N'),
+(0, 5, 1, NULL, 'N'),
+(0, 5, 2, NULL, 'N'),
+(0, 6, 1, NULL, 'N'),
+(0, 6, 2, NULL, 'N'),
+(0, 7, 1, NULL, 'N'),
+(0, 7, 2, NULL, 'N'),
+(0, 8, 1, NULL, 'N'),
+(0, 8, 2, NULL, 'N'),
+(0, 9, 1, NULL, 'N'),
+(0, 9, 2, NULL, 'N'),
+(1, 0, 1, NULL, 'N'),
+(1, 0, 2, NULL, 'N'),
+(1, 1, 1, NULL, 'N'),
+(1, 1, 2, NULL, 'N'),
+(1, 2, 1, NULL, 'N'),
+(1, 2, 2, NULL, 'N'),
+(1, 3, 1, NULL, 'N'),
+(1, 3, 2, NULL, 'N'),
+(1, 4, 1, NULL, 'N'),
+(1, 4, 2, NULL, 'N'),
+(1, 5, 1, NULL, 'N'),
+(1, 5, 2, NULL, 'N'),
+(1, 6, 1, NULL, 'N'),
+(1, 6, 2, NULL, 'N'),
+(1, 7, 1, NULL, 'N'),
+(1, 7, 2, NULL, 'N'),
+(1, 8, 1, NULL, 'N'),
+(1, 8, 2, NULL, 'N'),
+(1, 9, 1, NULL, 'N'),
+(1, 9, 2, NULL, 'N'),
+(2, 0, 1, NULL, 'N'),
+(2, 0, 2, NULL, 'N'),
+(2, 1, 1, NULL, 'N'),
+(2, 1, 2, NULL, 'N'),
+(2, 2, 1, NULL, 'N'),
+(2, 2, 2, NULL, 'N'),
+(2, 3, 1, NULL, 'N'),
+(2, 3, 2, NULL, 'N'),
+(2, 4, 1, NULL, 'N'),
+(2, 4, 2, NULL, 'N'),
+(2, 5, 1, NULL, 'N'),
+(2, 5, 2, NULL, 'N'),
+(2, 6, 1, NULL, 'N'),
+(2, 6, 2, NULL, 'N'),
+(2, 7, 1, NULL, 'N'),
+(2, 7, 2, NULL, 'N'),
+(2, 8, 1, NULL, 'N'),
+(2, 8, 2, NULL, 'N'),
+(2, 9, 1, NULL, 'N'),
+(2, 9, 2, NULL, 'N'),
+(3, 0, 1, NULL, 'N'),
+(3, 0, 2, NULL, 'N'),
+(3, 1, 1, NULL, 'N'),
+(3, 1, 2, NULL, 'N'),
+(3, 2, 1, NULL, 'N'),
+(3, 2, 2, NULL, 'N'),
+(3, 3, 1, NULL, 'N'),
+(3, 3, 2, NULL, 'N'),
+(3, 4, 1, NULL, 'N'),
+(3, 4, 2, NULL, 'N'),
+(3, 5, 1, NULL, 'N'),
+(3, 5, 2, NULL, 'N'),
+(3, 6, 1, NULL, 'N'),
+(3, 6, 2, NULL, 'N'),
+(3, 7, 1, NULL, 'N'),
+(3, 7, 2, NULL, 'N'),
+(3, 8, 1, NULL, 'N'),
+(3, 8, 2, NULL, 'N'),
+(3, 9, 1, NULL, 'N'),
+(3, 9, 2, NULL, 'N'),
+(4, 0, 1, NULL, 'N'),
+(4, 0, 2, NULL, 'N'),
+(4, 1, 1, NULL, 'N'),
+(4, 1, 2, NULL, 'N'),
+(4, 2, 1, NULL, 'N'),
+(4, 2, 2, NULL, 'N'),
+(4, 3, 1, NULL, 'N'),
+(4, 3, 2, NULL, 'N'),
+(4, 4, 1, NULL, 'N'),
+(4, 4, 2, NULL, 'N'),
+(4, 5, 1, NULL, 'N'),
+(4, 5, 2, NULL, 'N'),
+(4, 6, 1, NULL, 'N'),
+(4, 6, 2, NULL, 'N'),
+(4, 7, 1, NULL, 'N'),
+(4, 7, 2, NULL, 'N'),
+(4, 8, 1, NULL, 'N'),
+(4, 8, 2, NULL, 'N'),
+(4, 9, 1, NULL, 'N'),
+(4, 9, 2, NULL, 'N');
+
+-- --------------------------------------------------------
+
+--
+-- Δομή πίνακα για τον πίνακα `board_empty`
+--
+
+CREATE TABLE `board_empty` (
   `x_data` tinyint(1) NOT NULL,
   `y_data` tinyint(1) NOT NULL,
-  `ship` varchar(50) NOT NULL DEFAULT '',
-  `class` enum('Y','N') DEFAULT NULL,
-  PRIMARY KEY (`x_data`,`y_data`) USING BTREE
+  `player` int(11) NOT NULL,
+  `ship_on_board` enum('Y','N') DEFAULT NULL,
+  `is_hitted` enum('Y','N') DEFAULT 'N'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table naval_battle.board_empty: ~100 rows (approximately)
-INSERT INTO `board_empty` (`x_data`, `y_data`, `ship`, `class`) VALUES
-	(1, 1, '', NULL),
-	(1, 2, '', NULL),
-	(1, 3, '', NULL),
-	(1, 4, '', NULL),
-	(1, 5, '', NULL),
-	(1, 6, '', NULL),
-	(1, 7, '', NULL),
-	(1, 8, '', NULL),
-	(1, 9, '', NULL),
-	(1, 10, '', NULL),
-	(2, 1, '', NULL),
-	(2, 2, '', NULL),
-	(2, 3, '', NULL),
-	(2, 4, '', NULL),
-	(2, 5, '', NULL),
-	(2, 6, '', NULL),
-	(2, 7, '', NULL),
-	(2, 8, '', NULL),
-	(2, 9, '', NULL),
-	(2, 10, '', NULL),
-	(3, 1, '', NULL),
-	(3, 2, '', NULL),
-	(3, 3, '', NULL),
-	(3, 4, '', NULL),
-	(3, 5, '', NULL),
-	(3, 6, '', NULL),
-	(3, 7, '', NULL),
-	(3, 8, '', NULL),
-	(3, 9, '', NULL),
-	(3, 10, '', NULL),
-	(4, 1, '', NULL),
-	(4, 2, '', NULL),
-	(4, 3, '', NULL),
-	(4, 4, '', NULL),
-	(4, 5, '', NULL),
-	(4, 6, '', NULL),
-	(4, 7, '', NULL),
-	(4, 8, '', NULL),
-	(4, 9, '', NULL),
-	(4, 10, '', NULL),
-	(5, 1, '', NULL),
-	(5, 2, '', NULL),
-	(5, 3, '', NULL),
-	(5, 4, '', NULL),
-	(5, 5, '', NULL),
-	(5, 6, '', NULL),
-	(5, 7, '', NULL),
-	(5, 8, '', NULL),
-	(5, 9, '', NULL),
-	(5, 10, '', NULL),
-	(6, 1, '', NULL),
-	(6, 2, '', NULL),
-	(6, 3, '', NULL),
-	(6, 4, '', NULL),
-	(6, 5, '', NULL),
-	(6, 6, '', NULL),
-	(6, 7, '', NULL),
-	(6, 8, '', NULL),
-	(6, 9, '', NULL),
-	(6, 10, '', NULL),
-	(7, 1, '', NULL),
-	(7, 2, '', NULL),
-	(7, 3, '', NULL),
-	(7, 4, '', NULL),
-	(7, 5, '', NULL),
-	(7, 6, '', NULL),
-	(7, 7, '', NULL),
-	(7, 8, '', NULL),
-	(7, 9, '', NULL),
-	(7, 10, '', NULL),
-	(8, 1, '', NULL),
-	(8, 2, '', NULL),
-	(8, 3, '', NULL),
-	(8, 4, '', NULL),
-	(8, 5, '', NULL),
-	(8, 6, '', NULL),
-	(8, 7, '', NULL),
-	(8, 8, '', NULL),
-	(8, 9, '', NULL),
-	(8, 10, '', NULL),
-	(9, 1, '', NULL),
-	(9, 2, '', NULL),
-	(9, 3, '', NULL),
-	(9, 4, '', NULL),
-	(9, 5, '', NULL),
-	(9, 6, '', NULL),
-	(9, 7, '', NULL),
-	(9, 8, '', NULL),
-	(9, 9, '', NULL),
-	(9, 10, '', NULL),
-	(10, 1, '', NULL),
-	(10, 2, '', NULL),
-	(10, 3, '', NULL),
-	(10, 4, '', NULL),
-	(10, 5, '', NULL),
-	(10, 6, '', NULL),
-	(10, 7, '', NULL),
-	(10, 8, '', NULL),
-	(10, 9, '', NULL),
-	(10, 10, '', NULL);
+--
+-- Άδειασμα δεδομένων του πίνακα `board_empty`
+--
 
--- Dumping structure for procedure naval_battle.clean_board
-DELIMITER //
-CREATE PROCEDURE `clean_board`()
-BEGIN
-REPLACE INTO board SELECT * FROM board_empty;
-END//
-DELIMITER ;
+INSERT INTO `board_empty` (`x_data`, `y_data`, `player`, `ship_on_board`, `is_hitted`) VALUES
+(0, 0, 1, NULL, 'N'),
+(0, 0, 2, NULL, 'N'),
+(0, 1, 1, NULL, 'N'),
+(0, 1, 2, NULL, 'N'),
+(0, 2, 1, NULL, 'N'),
+(0, 2, 2, NULL, 'N'),
+(0, 3, 1, NULL, 'N'),
+(0, 3, 2, NULL, 'N'),
+(0, 4, 1, NULL, 'N'),
+(0, 4, 2, NULL, 'N'),
+(0, 5, 1, NULL, 'N'),
+(0, 5, 2, NULL, 'N'),
+(0, 6, 1, NULL, 'N'),
+(0, 6, 2, NULL, 'N'),
+(0, 7, 1, NULL, 'N'),
+(0, 7, 2, NULL, 'N'),
+(0, 8, 1, NULL, 'N'),
+(0, 8, 2, NULL, 'N'),
+(0, 9, 1, NULL, 'N'),
+(0, 9, 2, NULL, 'N'),
+(1, 0, 1, NULL, 'N'),
+(1, 0, 2, NULL, 'N'),
+(1, 1, 1, NULL, 'N'),
+(1, 1, 2, NULL, 'N'),
+(1, 2, 1, NULL, 'N'),
+(1, 2, 2, NULL, 'N'),
+(1, 3, 1, NULL, 'N'),
+(1, 3, 2, NULL, 'N'),
+(1, 4, 1, NULL, 'N'),
+(1, 4, 2, NULL, 'N'),
+(1, 5, 1, NULL, 'N'),
+(1, 5, 2, NULL, 'N'),
+(1, 6, 1, NULL, 'N'),
+(1, 6, 2, NULL, 'N'),
+(1, 7, 1, NULL, 'N'),
+(1, 7, 2, NULL, 'N'),
+(1, 8, 1, NULL, 'N'),
+(1, 8, 2, NULL, 'N'),
+(1, 9, 1, NULL, 'N'),
+(1, 9, 2, NULL, 'N'),
+(2, 0, 1, NULL, 'N'),
+(2, 0, 2, NULL, 'N'),
+(2, 1, 1, NULL, 'N'),
+(2, 1, 2, NULL, 'N'),
+(2, 2, 1, NULL, 'N'),
+(2, 2, 2, NULL, 'N'),
+(2, 3, 1, NULL, 'N'),
+(2, 3, 2, NULL, 'N'),
+(2, 4, 1, NULL, 'N'),
+(2, 4, 2, NULL, 'N'),
+(2, 5, 1, NULL, 'N'),
+(2, 5, 2, NULL, 'N'),
+(2, 6, 1, NULL, 'N'),
+(2, 6, 2, NULL, 'N'),
+(2, 7, 1, NULL, 'N'),
+(2, 7, 2, NULL, 'N'),
+(2, 8, 1, NULL, 'N'),
+(2, 8, 2, NULL, 'N'),
+(2, 9, 1, NULL, 'N'),
+(2, 9, 2, NULL, 'N'),
+(3, 0, 1, NULL, 'N'),
+(3, 0, 2, NULL, 'N'),
+(3, 1, 1, NULL, 'N'),
+(3, 1, 2, NULL, 'N'),
+(3, 2, 1, NULL, 'N'),
+(3, 2, 2, NULL, 'N'),
+(3, 3, 1, NULL, 'N'),
+(3, 3, 2, NULL, 'N'),
+(3, 4, 1, NULL, 'N'),
+(3, 4, 2, NULL, 'N'),
+(3, 5, 1, NULL, 'N'),
+(3, 5, 2, NULL, 'N'),
+(3, 6, 1, NULL, 'N'),
+(3, 6, 2, NULL, 'N'),
+(3, 7, 1, NULL, 'N'),
+(3, 7, 2, NULL, 'N'),
+(3, 8, 1, NULL, 'N'),
+(3, 8, 2, NULL, 'N'),
+(3, 9, 1, NULL, 'N'),
+(3, 9, 2, NULL, 'N'),
+(4, 0, 1, NULL, 'N'),
+(4, 0, 2, NULL, 'N'),
+(4, 1, 1, NULL, 'N'),
+(4, 1, 2, NULL, 'N'),
+(4, 2, 1, NULL, 'N'),
+(4, 2, 2, NULL, 'N'),
+(4, 3, 1, NULL, 'N'),
+(4, 3, 2, NULL, 'N'),
+(4, 4, 1, NULL, 'N'),
+(4, 4, 2, NULL, 'N'),
+(4, 5, 1, NULL, 'N'),
+(4, 5, 2, NULL, 'N'),
+(4, 6, 1, NULL, 'N'),
+(4, 6, 2, NULL, 'N'),
+(4, 7, 1, NULL, 'N'),
+(4, 7, 2, NULL, 'N'),
+(4, 8, 1, NULL, 'N'),
+(4, 8, 2, NULL, 'N'),
+(4, 9, 1, NULL, 'N'),
+(4, 9, 2, NULL, 'N');
 
--- Dumping structure for πίνακας naval_battle.game_status
-CREATE TABLE IF NOT EXISTS `game_status` (
+-- --------------------------------------------------------
+
+--
+-- Δομή πίνακα για τον πίνακα `game_status`
+--
+
+CREATE TABLE `game_status` (
   `status` enum('not active','initialized','started','ended','aborded') NOT NULL DEFAULT 'not active',
   `p_turn` enum('1','2') DEFAULT NULL,
   `result` enum('1','2') DEFAULT NULL,
   `last_change` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table naval_battle.game_status: ~0 rows (approximately)
-INSERT INTO `game_status` (`status`, `p_turn`, `result`, `last_change`) VALUES
-	('not active', NULL, NULL, '2023-11-16 12:14:14');
+--
+-- Άδειασμα δεδομένων του πίνακα `game_status`
+--
 
--- Dumping structure for πίνακας naval_battle.players
-CREATE TABLE IF NOT EXISTS `players` (
+INSERT INTO `game_status` (`status`, `p_turn`, `result`, `last_change`) VALUES
+('not active', NULL, NULL, '2023-11-16 12:14:14');
+
+-- --------------------------------------------------------
+
+--
+-- Δομή πίνακα για τον πίνακα `players`
+--
+
+CREATE TABLE `players` (
   `username` varchar(20) DEFAULT NULL,
   `player_num` enum('1','2') NOT NULL,
   `token` varchar(100) DEFAULT NULL,
-  `last_action` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`player_num`)
+  `last_action` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table naval_battle.players: ~2 rows (approximately)
+--
+-- Άδειασμα δεδομένων του πίνακα `players`
+--
+
 INSERT INTO `players` (`username`, `player_num`, `token`, `last_action`) VALUES
-	(NULL, '1', NULL, NULL),
-	(NULL, '2', NULL, NULL);
+('P1', '1', 'qwerty', NULL),
+('P2', '2', 'ytrewq', NULL);
 
--- Dumping structure for πίνακας naval_battle.ships_p1
-CREATE TABLE IF NOT EXISTS `ships_p1` (
+-- --------------------------------------------------------
+
+--
+-- Δομή πίνακα για τον πίνακα `ships_p1`
+--
+
+CREATE TABLE `ships_p1` (
   `typeofship` varchar(20) NOT NULL,
   `player_num` enum('1','2') NOT NULL,
   `lenght` int(11) DEFAULT NULL,
-  PRIMARY KEY (`typeofship`) USING BTREE
+  `placed` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table naval_battle.ships_p1: ~4 rows (approximately)
-INSERT INTO `ships_p1` (`typeofship`, `player_num`, `lenght`) VALUES
-	('air_carrier', '1', 4),
-	('f_vessel', '1', 2),
-	('pass_ship', '1', 5),
-	('submarine', '1', 3);
+--
+-- Άδειασμα δεδομένων του πίνακα `ships_p1`
+--
 
--- Dumping structure for πίνακας naval_battle.ships_p2
-CREATE TABLE IF NOT EXISTS `ships_p2` (
+INSERT INTO `ships_p1` (`typeofship`, `player_num`, `lenght`, `placed`) VALUES
+('air_carrier', '1', 4, 1),
+('f_vessel', '1', 2, 0),
+('pass_ship', '1', 5, 0),
+('submarine', '1', 3, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Δομή πίνακα για τον πίνακα `ships_p2`
+--
+
+CREATE TABLE `ships_p2` (
   `typeofship` varchar(20) NOT NULL,
   `player_num` enum('1','2') NOT NULL,
   `lenght` int(11) DEFAULT NULL,
-  PRIMARY KEY (`typeofship`) USING BTREE
+  `placed` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table naval_battle.ships_p2: ~4 rows (approximately)
-INSERT INTO `ships_p2` (`typeofship`, `player_num`, `lenght`) VALUES
-	('air_carrier', '2', 4),
-	('f_vessel', '2', 2),
-	('pass_ship', '2', 5),
-	('submarine', '2', 3);
+--
+-- Άδειασμα δεδομένων του πίνακα `ships_p2`
+--
 
-/*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
-/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
-/*!40014 SET FOREIGN_KEY_CHECKS=IFNULL(@OLD_FOREIGN_KEY_CHECKS, 1) */;
+INSERT INTO `ships_p2` (`typeofship`, `player_num`, `lenght`, `placed`) VALUES
+('air_carrier', '2', 4, 1),
+('f_vessel', '2', 2, 0),
+('pass_ship', '2', 5, 0),
+('submarine', '2', 3, 0);
+
+--
+-- Ευρετήρια για άχρηστους πίνακες
+--
+
+--
+-- Ευρετήρια για πίνακα `board`
+--
+ALTER TABLE `board`
+  ADD PRIMARY KEY (`x_data`,`y_data`,`player`) USING BTREE;
+
+--
+-- Ευρετήρια για πίνακα `board_empty`
+--
+ALTER TABLE `board_empty`
+  ADD PRIMARY KEY (`x_data`,`y_data`,`player`) USING BTREE;
+
+--
+-- Ευρετήρια για πίνακα `players`
+--
+ALTER TABLE `players`
+  ADD PRIMARY KEY (`player_num`);
+
+--
+-- Ευρετήρια για πίνακα `ships_p1`
+--
+ALTER TABLE `ships_p1`
+  ADD PRIMARY KEY (`typeofship`) USING BTREE;
+
+--
+-- Ευρετήρια για πίνακα `ships_p2`
+--
+ALTER TABLE `ships_p2`
+  ADD PRIMARY KEY (`typeofship`) USING BTREE;
+COMMIT;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40111 SET SQL_NOTES=IFNULL(@OLD_SQL_NOTES, 1) */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
