@@ -14,10 +14,10 @@ BEGIN
     SET max_count := (SELECT lenght from ships_p1 where typeofship = shipName);
     
     WHILE counter < max_count DO
-        IF (orientation_ = 'h') THEN
+        IF (orientation_ = 'v') THEN
     	    UPDATE board SET ship_on_board = 1 WHERE x_data = (x_ + counter) and (y_data = y_ ) and (player = playerPlayed);
         END IF;
-        IF (orientation_ = 'v') THEN
+        IF (orientation_ = 'h') THEN
     	    UPDATE board SET ship_on_board = 1 WHERE (x_data = x_) and (y_data = y_  + counter) and (player = playerPlayed);
         END IF;
         SET counter = counter + 1;
