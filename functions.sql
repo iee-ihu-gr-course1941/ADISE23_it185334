@@ -32,6 +32,8 @@ BEGIN
 
     update ships_p1 SET placed = 0; 
     update ships_p2 SET placed = 0; 
+
+    update game_status set status = 'initialized';
 END //
 
 

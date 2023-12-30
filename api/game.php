@@ -20,6 +20,27 @@
         $conn->close();
     }
 
-    initGame();
+
+    $method = $_SERVER['REQUEST_METHOD'];
+
+    switch ($method) {                   
+    case 'GET':
+        // initGame();
+
+        // echo json_encode(["message" => "init success"], true);
+        break;
+    case 'POST':
+        initGame();
+
+        echo json_encode(["message" => "init success"], true);
+        break;
+        // $postData = file_get_contents("php://input");
+        // $jsonData = json_decode($postData, true);
+        // echo json_encode(placeShip($player,$jsonData["shipName"],$jsonData["x"],$jsonData["y"],$jsonData["orientation"]));
+        break;
+
+}
+
+    
 
 ?>
