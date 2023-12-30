@@ -20,11 +20,29 @@
         $conn->close();
     }
 
+    function getGameStatus()
+    {
+        $databaseHandler = new DatabaseConnector();
+        $conn = $databaseHandler->getConnection();
+
+        $sql = "select p_turn, status from game_status;";
+
+        $result  = $conn->query($sql);
+        $board = array();
+
+        while ($row = $result ->fetch_assoc()) {
+                $board[] = $row;
+        }
+
+        return $board[0];
+    }
 
     $method = $_SERVER['REQUEST_METHOD'];
 
     switch ($method) {                   
     case 'GET':
+        $game_s = getGameStatus();
+        echo json_encode($game_s,true);
         // initGame();
 
         // echo json_encode(["message" => "init success"], true);
