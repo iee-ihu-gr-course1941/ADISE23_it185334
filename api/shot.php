@@ -106,7 +106,7 @@ function makeHit($player_, $x, $y)
         $databaseHandler = new DatabaseConnector();
         $conn = $databaseHandler->getConnection();
 
-        $sql = "update game_status set status = 'ended'; ";
+        $sql = "update game_status set status = 'ended', result = $player_; ";
 
         if ($conn->query($sql) === FALSE) {
             throw new Exception("Error on php");
@@ -134,40 +134,101 @@ function makeHit($player_, $x, $y)
 
 }
 
+
+function getGameTurn()
+{
+    $databaseHandler = new DatabaseConnector();
+    $conn = $databaseHandler->getConnection();
+
+    $sql = "select p_turn from game_status;";
+
+    $result  = $conn->query($sql);
+    $games = array();
+
+    while ($row = $result ->fetch_assoc()) {
+        $games[] = $row;
+    }
+
+    return $games[0]['p_turn'];
+}
+
+
+
+
 if($method == "POST")
 {
-    
+
+    if(getGameTurn() != $player)
+    {
+        echo json_encode(["message" => "ain't your turn"], true);
+        return;
+    }
+
+    $databaseHandler = new DatabaseConnector();
+    $conn = $databaseHandler->getConnection();
 $postData = file_get_contents("php://input");
 $jsonData = json_decode($postData, true);
-makeHit($player, $jsonData["x"],$jsonData["y"]);
+ #START CONTROLL MAKE HIT
+ $sql = "";
+ $x = $jsonData['x'];
+ $y = $jsonData['y'];
+ if($player == 1)
+ {
+     $sql = "select is_hitted from board where ( player = 2 ) and (x_data = $x) and (y_data = $y);";
+ }
+ else
+ {
+     $sql = "select is_hitted from board where ( player = 1 ) and (x_data = $x) and (y_data = $y);";
+ }
+ 
 
 
+ $result  = $conn->query($sql);
+ $games = array();
 
-$databaseHandler = new DatabaseConnector();
-$conn = $databaseHandler->getConnection();
+ while ($row = $result ->fetch_assoc()) {
+     $games[] = $row;
+ }
 
-$sql = "";
-$x = $jsonData['x'];
-$y = $jsonData['y'];
-if($player == 1)
-{
-    $sql = "select ship_on_board from board where x_data = $x and y_data = $y and player = 2 ;";
-}
-else
-{
-    $sql = "select ship_on_board from board where x_data = $x and y_data = $y and player = 1 ;";
-}
-   
+ if($games[0]['is_hitted'] == 'Y')
+ {
+     echo json_encode(["message" => "You already hitted this square"], true);
+     return;
+ }
+ else
+ {
+    makeHit($player, $jsonData["x"],$jsonData["y"]);
+    $databaseHandler = new DatabaseConnector();
+    $conn = $databaseHandler->getConnection();
+
+    $sql = "";
+    $x = $jsonData['x'];
+    $y = $jsonData['y'];
+    if($player == 1)
+    {
+        $sql = "select ship_on_board from board where x_data = $x and y_data = $y and player = 2 ;";
+    }
+    else
+    {
+        $sql = "select ship_on_board from board where x_data = $x and y_data = $y and player = 1 ;";
+    }
+    
 
 
-$result  = $conn->query($sql);
-$games = array();
+    $result  = $conn->query($sql);
+    $games = array();
 
-while ($row = $result ->fetch_assoc()) {
-      $games[] = $row;
-}
+    while ($row = $result ->fetch_assoc()) {
+        $games[] = $row;
+    }
 
-echo json_encode($games,true);
+    echo json_encode($games,true);
+ }
+     
+ 
+
+ #END CONTROLL MAKE HIT
+
 }
 else
 {

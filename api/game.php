@@ -25,7 +25,7 @@
         $databaseHandler = new DatabaseConnector();
         $conn = $databaseHandler->getConnection();
 
-        $sql = "select p_turn, status from game_status;";
+        $sql = "select p_turn, status, result as winner from game_status;";
 
         $result  = $conn->query($sql);
         $board = array();
