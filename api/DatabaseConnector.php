@@ -4,7 +4,7 @@ class DatabaseConnector {
     private $conn;
 
     public function __construct() {
-        $host = "localhost";
+        $host = "MariaDB";
         $user = "root";
         $pass = "";
         $dbname = "naval_battle";
