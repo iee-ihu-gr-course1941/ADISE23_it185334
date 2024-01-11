@@ -4,8 +4,8 @@ class DatabaseConnector {
     private $conn;
 
     public function __construct() {
-        $host = "MariaDB";
-        $user = "it185334";
+        $host = "localhost";
+        $user = "root";
         $pass = "";
         $dbname = "naval_battle";
         $this->conn = new mysqli($host, $user, $pass,$dbname);
