@@ -53,7 +53,7 @@ function placeShip($player_, $shipName, $x, $y, $orientation)
     $sql = "call placeShip('$shipName',$x,$y,'$orientation',$player_);";
 
     if ($conn->query($sql) === FALSE) {
-        throw new Exception("Error on rolling dice");
+        throw new Exception("Error on placing the ship");
       }
       
     $conn->close();
