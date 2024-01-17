@@ -1,3 +1,5 @@
+DELIMITER //
+
 create procedure placeShip(IN shipName varchar(255), IN x_ INT,IN y_ INT, IN orientation_ varchar(255), IN playerPlayed INT)
 BEGIN
 	DECLARE max_count INT;
@@ -54,6 +56,4 @@ BEGIN
     
 END //
 
-call placeShip('air_carrier',0,0,'h',1);
-
-call checkFounded('air_carrier',1);
+DELIMITER ;

@@ -9,10 +9,10 @@ require_once("DatabaseConnector.php");
 
 // Parse the request URI
 $requestUri = $_SERVER['REQUEST_URI'];
-$str_arr = explode ("/", $requestUri);  
+$str_arr = explode("/", $requestUri);  
 // print_r($str_arr); 
 
-$player = $str_arr[4];
+$player = $str_arr[5];
 
 $databaseHandler = new DatabaseConnector();
 $conn = $databaseHandler->getConnection();

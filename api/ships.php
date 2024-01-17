@@ -12,7 +12,7 @@ $requestUri = $_SERVER['REQUEST_URI'];
 $str_arr = explode ("/", $requestUri);  
 // print_r($str_arr); 
 
-$player = $str_arr[4];
+$player = $str_arr[5];
 
 function getAvailableShips($player_)
 {
@@ -62,6 +62,8 @@ function placeShip($player_, $shipName, $x, $y, $orientation)
 }
 
 $method = $_SERVER['REQUEST_METHOD'];
+
+// echo $method;
 
 switch ($method) {                   
     case 'GET':
